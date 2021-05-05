@@ -3,30 +3,31 @@ let nrTries = 6, nrGood = 0;
 
 function byDefault() {
     let wordSize = Math.floor(Math.random() * 5) + 4;
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     for (let i = 0; i < wordSize; i++) {
-        word += String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+        word += alphabet[Math.floor(Math.random() * alphabet.length)];
         $('#hiddenword').append('<span class="border-bottom border-dark border-3 mx-2 px-3" id="letter' + i + '"></span>');
     }
     // alert(word);
-    for (let i = 65; i <= 77; i++) {
+    for (let i = 0; i <= 12; i++) {
         $('#lettersButton1').append('<button type="button" class="btn btn-info spaceButtons" id="button'
-        + i + '" onclick="checkLetter(' + i + ')">' + String.fromCharCode(i) + '</button>');
+        + alphabet[i] + '" onclick="checkLetter(\'' + alphabet[i] + '\')">' + alphabet[i] + '</button>');
     }
-    for (let i = 78; i <= 90; i++) {
+    for (let i = 13; i <= 25; i++) {
         $('#lettersButton2').append('<button type="button" class="btn btn-info spaceButtons" id="button'
-        + i + '" onclick="checkLetter(' + i + ')">' + String.fromCharCode(i) + '</button>');
+        + alphabet[i] + '" onclick="checkLetter(\'' + alphabet[i] + '\')">' + alphabet[i] + '</button>');
     }
 }
 
-function checkLetter(whichLetter) {
-    $('#button' + whichLetter).prop('disabled', true);
+function checkLetter(currentChar) {
+    $('#button' + currentChar).prop('disabled', true);
     let itContains = false;
     for (let i = 0; i < word.length; i++) {
-        if (word[i] === String.fromCharCode(whichLetter)) {
+        if (word[i] === currentChar) {
             itContains = true;
             nrGood++;
             $('#letter' + i).removeClass("border-bottom border-dark border-3");
-            $('#letter' + i).text(word[i]);
+            $('#letter' + i).text(currentChar);
         }
     }
     if (!itContains) {
